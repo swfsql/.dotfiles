@@ -4,10 +4,6 @@
 
 # Alias
 
-alias thi='sudo netcfg thi && chromium &! exit'
-alias uni='sudo netcfg uni && chromium &! exit'
-
-alias brow='chromium &! exit'
 alias fl='ranger'
 alias subl='subl'
 
@@ -69,14 +65,9 @@ function ex() {
 # PROXY
 
  function proxy(){
-     export http_proxy="http://172.16.1.1:3128/"
-     export https_proxy="http://172.16.1.1:3128/"
-     export ftp_proxy="http://172.16.1.1:3128/"
-     export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-     echo -e "\nProxy environment variable set."
- }
 
- function proxyoff(){
+    if [[ $1 == "thi" ]] ; then
+
      unset HTTP_PROXY
      unset http_proxy
      unset HTTPS_PROXY
@@ -84,7 +75,28 @@ function ex() {
      unset FTP_PROXY
      unset ftp_proxy
      echo -e "\nProxy environment variable removed."
- } 
+
+    elif [[ $1 == "uni" ]]; then 
+
+     export http_proxy="http://172.16.1.1:3128/"
+     export https_proxy="http://172.16.1.1:3128/"
+     export ftp_proxy="http://172.16.1.1:3128/"
+     export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+     echo -e "\nProxy environment variable set."
+
+    fi
+ }
+
+# CONEXÃO
+
+funcion net(){
+  if [[ $# == "1" ]] ; then
+    proxy $1
+    sudo netcfg $1
+  fi
+  chromium &! exit
+}
+
 
 # SE SAIR, VOLTAR AO LOGIN DO THI
 
