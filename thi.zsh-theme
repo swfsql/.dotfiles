@@ -2,6 +2,15 @@
 
 [[ $- != *i* ]] && return
 
+# http://ruderich.org/simon/config/zshrc
+umask 077
+setopt autocd
+autoload -Uz zmv
+setopt histignoredups
+setopt histignorespace
+autoload -Uz colors && colors
+
+
 # Alias
 
 alias fl='ranger'
@@ -13,6 +22,7 @@ alias la='ls -a'
 alias ..='cd .. && ls'
 alias ...='cd ../.. && ls'
 alias lk='cd'
+alias grep='grep --color=auto'
 
 alias shutdown='sudo shutdown -h now'
 alias reboot='sudo reboot'
@@ -112,8 +122,13 @@ fi
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
 local return_code=" %(?. .%{$fg[red]%}%?%{$reset_color%})"
 
+local THI_COL=$(( COLUMNS / 2 ))
+if [[ $COLUMNS < 46 ]] ; then
+  THI_COL=$(( ( COLUMNS - 12 ) / 2 ))
+fi
+
 PROMPT='%{$FG[105]%}%(!.#.»)%{$reset_color%} '
-RPROMPT='$(git_prompt_info)$FG[032]%~%{$reset_color%}${return_code}'
+RPROMPT='$(git_prompt_info)$FG[032]%$THI_COL<..<${PWD/#$HOME/~}%<<%{$reset_color%}${return_code}'
 
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%}⚡%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}"
