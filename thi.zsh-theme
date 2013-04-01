@@ -49,6 +49,17 @@ alias folk2='mplayer -playlist http://server-10.stream-server.nl:8300/listen.pls
 alias rock='mplayer -playlist http://sc6.radiocaroline.net:8040/listen.pls'
 alias chill='mplayer -playlist http://media-ice.musicradio.com/ChillMP3'
 
+function cv() {
+ if [[ $1 == *\.c ]]; then
+  gcc $1 `pkg-config --libs --cflags opencv`
+ elif [[ $1  == *\.cpp ]]; then
+  g++ $1 `pkg-config --libs --cflags opencv`
+ else
+  echo "extensao invalida"
+  return
+ fi
+ ./a.out
+}
 
 ## ex - archive extractor
 # usage: ex <file>
@@ -108,6 +119,28 @@ funcion net(){
 }
 
 
+# hora=date +'%H' | sed -r 's/^0//' 
+# echo $hora
+
+# TEMA
+
+sublSettings=$HOME/.config/sublime-text-2/Packages/User/Preferences.sublime-settings
+function light() {
+  xrdb -load $HOME/.Xresources
+  xrdb -merge $HOME/.Xresources_light
+  echo $(cat $sublSettings| sed -r 's/\(Dark\)\.tmTheme/(Light).tmTheme/') > $sublSettings
+  exit
+}
+
+
+function dark() {
+  xrdb -load $HOME/.Xresources
+  xrdb -merge $HOME/.Xresources_dark
+  echo $(cat $sublSettings| sed -r 's/\(Light\)\.tmTheme/(Dark).tmTheme/') > $sublSettings
+  exit
+}
+
+
 # SE SAIR, VOLTAR AO LOGIN DO THI
 
 
@@ -120,7 +153,7 @@ fi
 # PROMPT
 
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
-local return_code=" %(?. .%{$fg[red]%}%?%{$reset_color%})"
+local return_code=" %(?. .%{$fg[red]%} %? %{$reset_color%})"
 
 local THI_COL=$(( COLUMNS / 2 ))
 if [[ $COLUMNS < 46 ]] ; then
@@ -128,7 +161,7 @@ if [[ $COLUMNS < 46 ]] ; then
 fi
 
 PROMPT='%{$FG[105]%}%(!.#.»)%{$reset_color%} '
-RPROMPT='$(git_prompt_info)$FG[032]%$THI_COL<..<${PWD/#$HOME/~}%<<%{$reset_color%}${return_code}'
+RPROMPT='$(git_prompt_info)${return_code}$FG[032]%$THI_COL<..<${PWD/#$HOME/~}%<<%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%}⚡%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}"

@@ -21,9 +21,9 @@
 #define CLICK_TO_FOCUS  False      /* focus an unfocused window when clicked  */
 #define FOCUS_BUTTON    Button3   /* mouse button to be used along with CLICK_TO_FOCUS */
 #define BORDER_WIDTH    1         /* window border width */
-#define FOCUS           "#0e0e0e" /* focused window border color    */
-#define UNFOCUS         "#e4e4e4" /* unfocused window border color  */
-#define MINWSZ          50        /* minimum window size in pixels  */
+#define FOCUS           "#cb4b16" /* focused window border color    */
+#define UNFOCUS         "#657b83" /* unfocused window border color  */
+#define MINWSZ          100        /* minimum window size in pixels  */
 #define DEFAULT_DESKTOP 0         /* the desktop to focus initially */
 #define DESKTOPS        4         /* number of desktops - edit DESKTOPCHANGE keys to suit */
 #define NMASTER         1         /* number of windows in master area by default */
