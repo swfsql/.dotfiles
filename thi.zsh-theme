@@ -124,20 +124,35 @@ funcion net(){
 
 # TEMA
 
-sublSettings=$HOME/.config/sublime-text-2/Packages/User/Preferences.sublime-settings
+sublrc=$HOME/.config/sublime-text-2/Packages/User/Preferences.sublime-settings
+conkyrc=$HOME/.conkyrc
 function light() {
   xrdb -load $HOME/.Xresources
   xrdb -merge $HOME/.Xresources_light
-  echo $(cat $sublSettings| sed -r 's/\(Dark\)\.tmTheme/(Light).tmTheme/') > $sublSettings
-  exit
+  echo $(cat $sublrc| sed -r "s/\(Dark\)\.tmTheme/(Light).tmTheme/") > $sublrc
+  cat $conkyrc| sed -r "s/own_window_colour 002b36/own_window_colour fdf6e3/" > $conkyrc.tmp
+  cat $conkyrc.tmp > $conkyrc
+  cat $conkyrc | sed -r "s/color #839496/color #657b83/" > $conkyrc.tmp
+  cat $conkyrc.tmp > $conkyrc
+  cat $conkyrc | sed -r "s/default_shade_color 073642/default_shade_color eee8d5/" > $conkyrc.tmp
+  cat $conkyrc.tmp > $conkyrc
+  rm $conkyrc.tmp
+  xterm &! exit
 }
 
 
 function dark() {
   xrdb -load $HOME/.Xresources
   xrdb -merge $HOME/.Xresources_dark
-  echo $(cat $sublSettings| sed -r 's/\(Light\)\.tmTheme/(Dark).tmTheme/') > $sublSettings
-  exit
+  echo $(cat $sublrc | sed -r "s/\(Light\)\.tmTheme/(Dark).tmTheme/") > $sublrc
+  cat $conkyrc| sed -r "s/own_window_colour fdf6e3/own_window_colour 002b36/" > $conkyrc.tmp
+  cat $conkyrc.tmp > $conkyrc
+  cat $conkyrc | sed -r "s/color #657b83/color #839496/" > $conkyrc.tmp
+  cat $conkyrc.tmp > $conkyrc
+  cat $conkyrc | sed -r "s/default_shade_color eee8d5/default_shade_color 073642/" > $conkyrc.tmp
+  cat $conkyrc.tmp > $conkyrc
+  rm $conkyrc.tmp
+  xterm &! exit
 }
 
 

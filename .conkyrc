@@ -1,10 +1,12 @@
 alignment top_left
 background no
 border_width 0
+border_inner_margin 0
+border_outer_margin 0
 cpu_avg_samples 2
 default_color 3A1F1F
 default_outline_color grey
-default_shade_color DACFCF
+default_shade_color eee8d5
 double_buffer yes
 draw_borders no
 draw_graph_borders no
@@ -14,14 +16,14 @@ use_xft yes
 xftfont DejaVu Sans Mono:size=8
 gap_x 0
 gap_y -1
-minimum_size 1364 5
-maximum_size 1365 12
+minimum_size 1366
 net_avg_samples 2
 no_buffers yes
 out_to_console no
 out_to_stderr no
 extra_newline no
-own_window no
+own_window yes
+own_window_colour fdf6e3
 own_window_class Conky
 own_window_type override
 stippled_borders 0
@@ -32,4 +34,4 @@ show_graph_scale no
 show_graph_range no
 
 TEXT
-${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ${battery_time}${endif} | ${upspeed wlan0} ${downspeed wlan0} | $cpu% $memperc% | ${if_mpd_playing}$mpd_smart$endif${alignr}${time %a %d %b | %H:%M }
+${color #657b83}${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ${battery_time}${endif} | ${upspeed wlan0} ${downspeed wlan0} | $cpu% $memperc% | ${if_mpd_playing}$mpd_smart$endif${alignr}${utime %a %d %b | %I:%M }${color}
