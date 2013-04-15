@@ -10,7 +10,6 @@ setopt histignoredups
 setopt histignorespace
 autoload -Uz colors && colors
 
-
 # Alias
 
 alias fl='ranger'
@@ -32,7 +31,6 @@ alias lç='lo'
 alias dsk='sudo fdisk -l'
 alias w8='sudo mount /dev/sda2 /w8'
 
-alias pl='lyvi'
 alias p='mpc toggle'
 alias pa='mpc clear && mpc load all && mpc shuffle && mpc volume 60 && mpc play'
 alias load='mpc load'
@@ -105,6 +103,14 @@ function ex() {
      export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
      echo -e "\nProxy environment variable set."
 
+    elif [[ $1 == "uni2" ]]; then 
+
+     export http_proxy="http://172.16.1.1:3128/"
+     export https_proxy="http://172.16.1.1:3128/"
+     export ftp_proxy="http://172.16.1.1:3128/"
+     export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+     echo -e "\nProxy environment variable set."
+
     fi
  }
 
@@ -114,10 +120,13 @@ funcion net(){
   if [[ $# == "1" ]] ; then
     proxy $1
     sudo netcfg $1
+  else
+    dwb &! exit
   fi
-  chromium &! exit
 }
-
+alias bro='net bro'
+alias uni='net uni'
+alias uni2='net uni2'
 
 # hora=date +'%H' | sed -r 's/^0//' 
 # echo $hora
@@ -126,10 +135,14 @@ funcion net(){
 
 sublrc=$HOME/.config/sublime-text-2/Packages/User/Preferences.sublime-settings
 conkyrc=$HOME/.conkyrc
+dwbrc=$HOME/.config/dwb/settings
+tmprc=$HOME/.tmprc
 function light() {
   xrdb -load $HOME/.Xresources
   xrdb -merge $HOME/.Xresources_light
+  
   echo $(cat $sublrc| sed -r "s/\(Dark\)\.tmTheme/(Light).tmTheme/") > $sublrc
+  
   cat $conkyrc| sed -r "s/own_window_colour 002b36/own_window_colour fdf6e3/" > $conkyrc.tmp
   cat $conkyrc.tmp > $conkyrc
   cat $conkyrc | sed -r "s/color #839496/color #657b83/" > $conkyrc.tmp
@@ -137,6 +150,17 @@ function light() {
   cat $conkyrc | sed -r "s/default_shade_color 073642/default_shade_color eee8d5/" > $conkyrc.tmp
   cat $conkyrc.tmp > $conkyrc
   rm $conkyrc.tmp
+
+  cat $dwbrc| sed -r "s/002b36/fdf6e3/" > $tmprc.tmp
+  cat $tmprc.tmp > $dwbrc
+  cat $dwbrc | sed -r "s/073642/eee8d5/" > $tmprc.tmp
+  cat $tmprc.tmp > $dwbrc
+  cat $dwbrc | sed -r "s/586e75/93a1a1/" > $tmprc.tmp
+  cat $tmprc.tmp > $dwbrc
+  cat $dwbrc | sed -r "s/657b83/839496/" > $tmprc.tmp
+  cat $tmprc.tmp > $dwbrc
+  rm $tmprc.tmp
+
   xterm &! exit
 }
 
@@ -144,7 +168,9 @@ function light() {
 function dark() {
   xrdb -load $HOME/.Xresources
   xrdb -merge $HOME/.Xresources_dark
+  
   echo $(cat $sublrc | sed -r "s/\(Light\)\.tmTheme/(Dark).tmTheme/") > $sublrc
+
   cat $conkyrc| sed -r "s/own_window_colour fdf6e3/own_window_colour 002b36/" > $conkyrc.tmp
   cat $conkyrc.tmp > $conkyrc
   cat $conkyrc | sed -r "s/color #657b83/color #839496/" > $conkyrc.tmp
@@ -152,6 +178,17 @@ function dark() {
   cat $conkyrc | sed -r "s/default_shade_color eee8d5/default_shade_color 073642/" > $conkyrc.tmp
   cat $conkyrc.tmp > $conkyrc
   rm $conkyrc.tmp
+  
+  cat $dwbrc| sed -r "s/fdf6e3/002b36/" > $tmprc.tmp
+  cat $tmprc.tmp > $dwbrc
+  cat $dwbrc | sed -r "s/eee8d5/073642/" > $tmprc.tmp
+  cat $tmprc.tmp > $dwbrc
+  cat $dwbrc | sed -r "s/93a1a1/586e75/" > $tmprc.tmp
+  cat $tmprc.tmp > $dwbrc
+  cat $dwbrc | sed -r "s/839496/657b83/" > $tmprc.tmp
+  cat $tmprc.tmp > $dwbrc
+  rm $tmprc.tmp
+
   xterm &! exit
 }
 

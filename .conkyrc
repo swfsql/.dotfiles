@@ -13,7 +13,7 @@ draw_graph_borders no
 draw_outline no
 draw_shades yes
 use_xft yes
-xftfont DejaVu Sans Mono:size=8
+xftfont iconsolata:size=8
 gap_x 0
 gap_y -1
 minimum_size 1366
@@ -34,4 +34,4 @@ show_graph_scale no
 show_graph_range no
 
 TEXT
-${color #657b83}${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ${battery_time}${endif} | ${upspeed wlan0} ${downspeed wlan0} | $cpu% $memperc% | ${if_mpd_playing}$mpd_smart$endif${alignr}${utime %a %d %b | %I:%M }${color}
+${color #859900}${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ${color #dc322f}${battery_time}${endif}   ${color #657b83}${upspeed wlan0}   ${downspeed wlan0}   ${color #268bd2}$memperc   $cpu   ${color #657b83}${if_mpd_playing}$mpd_smart$endif${alignr}${utime %a %d %b }  ${color #d33682}${utime %I:%M }${color}

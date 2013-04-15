@@ -1,9 +1,9 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.21 for thi on Sat Mar 23 19:22:38 2013.
+# Written by xscreensaver-demo 5.21 for thi on Sun Apr 14 06:22:15 2013.
 # http://www.jwz.org/xscreensaver/
 
-timeout:	0:06:00
-cycle:		0:02:00
+timeout:	0:14:00
+cycle:		0:01:00
 lock:		False
 lockTimeout:	0:00:00
 passwdTimeout:	0:00:30
@@ -57,10 +57,10 @@ programs:								      \
 -				qix -root				    \n\
 -				rocks -root				    \n\
 -				rorschach -root				    \n\
-				decayscreen -root			    \n\
+				decayscreen -root -mode shuffle		    \n\
 -				flame -root				    \n\
 -				halo -root				    \n\
-				slidescreen -root			    \n\
+-				slidescreen -root			    \n\
 -				pedal -root				    \n\
 -				bouboule -root				    \n\
 -				braid -root				    \n\
@@ -94,7 +94,7 @@ programs:								      \
 -				xjack -root				    \n\
 -				xlyap -root				    \n\
 - GL: 				atlantis -root				    \n\
-				bsod -root -atari -bsd -sparclinux	    \n\
+-				bsod -root -atari -bsd -sparclinux	    \n\
 - GL: 				bubble3d -root				    \n\
 - GL: 				cage -root				    \n\
 -				crystal -root				    \n\
@@ -113,14 +113,14 @@ programs:								      \
 -				truchet -root				    \n\
 -				vidwhacker -root			    \n\
 -				blaster -root				    \n\
-				bumps -root				    \n\
+-				bumps -root				    \n\
 -				ccurve -root				    \n\
 -				compass -root				    \n\
 -				deluxe -root				    \n\
 -				demon -root				    \n\
 - GL: 				extrusion -root				    \n\
 -				loop -root				    \n\
-				penetrate -root				    \n\
+-				penetrate -root				    \n\
 -				petri -root				    \n\
 -				phosphor -root				    \n\
 - GL: 				pulsar -root				    \n\
@@ -159,7 +159,7 @@ programs:								      \
 - GL: 				endgame -root				    \n\
 -				euler2d -root				    \n\
 -				fluidballs -root			    \n\
-  GL: 				flurry -root				    \n\
+- GL: 				flurry -root				    \n\
 - GL: 				glblur -root				    \n\
 - GL: 				glsnake -root				    \n\
 -				halftone -root				    \n\
@@ -172,7 +172,7 @@ programs:								      \
 -				thornbird -root				    \n\
 -				twang -root				    \n\
 - GL: 				antspotlight -root			    \n\
-				apple2 -root				    \n\
+-				apple2 -root				    \n\
 - GL: 				atunnel -root				    \n\
 -				barcode -root				    \n\
 - GL: 				blinkbox -root				    \n\
@@ -186,7 +186,7 @@ programs:								      \
 -				fontglide -root				    \n\
 - GL: 				gleidescope -root			    \n\
 - GL: 				glknots -root				    \n\
-  GL: 				glmatrix -root -density 12		    \n\
+- GL: 				glmatrix -root -density 12		    \n\
 - GL: 				glslideshow -root			    \n\
 - GL: 				hypertorus -root			    \n\
 - GL: 				jigglypuff -root			    \n\
@@ -194,10 +194,10 @@ programs:								      \
 - GL: 				mirrorblob -root			    \n\
 -				piecewise -root				    \n\
 - GL: 				polytopes -root				    \n\
-  any: 				pong -root -speed 3			    \n\
+- any: 				pong -root -speed 6			    \n\
 -				popsquares -root			    \n\
 - GL: 				surfaces -root				    \n\
-				xanalogtv -root				    \n\
+-				xanalogtv -root				    \n\
 -				abstractile -root			    \n\
 -				anemotaxis -root			    \n\
 - GL: 				antinspect -root			    \n\
@@ -207,11 +207,11 @@ programs:								      \
 -				intermomentary -root			    \n\
 -				memscroller -root			    \n\
 - GL: 				noof -root				    \n\
-				pacman -root				    \n\
+-				pacman -root				    \n\
 - GL: 				pinion -root				    \n\
 - GL: 				polyhedra -root				    \n\
 - GL: 				providence -root			    \n\
-				substrate -root				    \n\
+-				substrate -root				    \n\
 -				wormhole -root				    \n\
 - GL: 				antmaze -root				    \n\
 - GL: 				boing -root				    \n\
@@ -237,7 +237,7 @@ programs:								      \
 - GL: 				voronoi -root				    \n\
 - GL: 				hypnowheel -root			    \n\
 - GL: 				klein -root				    \n\
-				lcdscrub -root				    \n\
+-				lcdscrub -root				    \n\
 - GL: 				photopile -root				    \n\
 - GL: 				skytentacles -root			    \n\
 - GL: 				rubikblocks -root			    \n\

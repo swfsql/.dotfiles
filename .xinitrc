@@ -17,6 +17,7 @@ fi
 
 if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
+    xrdb -merge $HOME/.Xresources_light
 fi
 
 if [ -f "$usermodmap" ]; then
@@ -24,7 +25,6 @@ if [ -f "$usermodmap" ]; then
 fi
 
 # start some nice programs
-
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 	for f in /etc/X11/xinit/xinitrc.d/* ; do
@@ -39,12 +39,18 @@ xset -b #fuck you beep
 
 # font
 xset +fp /usr/share/fonts/local
+xset +fp /usr/share/fonts/TTF
+xset +fp /usr/share/fonts/100dpi
+xset +fp /usr/share/fonts/misc
+xset +fp /usr/share/fonts/truetype
 xset fp rehash
 
 xsetroot -cursor_name left_ptr
 
+: "${wm:=monsterwm}"
+
 xterm & 
-nitrogen --restore & #bg
+feh --bg-fill down/img/wall/fog-forest-tree-nature-1440x2560.jpg  & # nitrogen --restore & #bg
 conky &
 mpd &
 /usr/bin/xscreensaver -no-splash &
