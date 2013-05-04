@@ -40,19 +40,34 @@ xset -b #fuck you beep
 # font
 xset +fp /usr/share/fonts/local
 xset +fp /usr/share/fonts/TTF
-xset +fp /usr/share/fonts/100dpi
-xset +fp /usr/share/fonts/misc
+#xset +fp /usr/share/fonts/100dpi
+#xset +fp /usr/share/fonts/misc
 xset +fp /usr/share/fonts/truetype
 xset fp rehash
 
 xsetroot -cursor_name left_ptr
 
-: "${wm:=monsterwm}"
+: "${wm:=$HOME/down/tar/monsterwm/monsterwm}"
+: "${ff:="/tmp/monsterwm.fifo"}"
+[[ -p $ff ]] || mkfifo -m 600 "$ff"
 
+
+find ~/down/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z | xargs -0 feh --bg-fill &  # feh --bg-fill down/img/wall/fog-forest-tree-nature-1440x2560.jpg  & # nitrogen --restore & #bg
 xterm & 
-feh --bg-fill down/img/wall/fog-forest-tree-nature-1440x2560.jpg  & # nitrogen --restore & #bg
 conky &
 mpd &
 /usr/bin/xscreensaver -no-splash &
-exec monsterwm #&
+#exec dwm
+
+fifo="/tmp/m"
+
+trap 'rm -f "${fifo}"' INT TERM EXIT
+[ -p "${fifo}" ] || { rm -f "${fifo}"; mkfifo -m 600 "${fifo}"; }
+#conky < "${fifo}" | bar &
+exec monsterwm 
+
+
+#exec monsterwm
+
+#&
 #bar

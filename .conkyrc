@@ -34,4 +34,4 @@ show_graph_scale no
 show_graph_range no
 
 TEXT
-${color #859900}${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ${color #dc322f}${battery_time}${endif}   ${color #657b83}${upspeed wlan0}   ${downspeed wlan0}   ${color #268bd2}$memperc   $cpu   ${color #657b83}${if_mpd_playing}$mpd_smart$endif${alignr}${utime %a %d %b }  ${color #d33682}${utime %I:%M }${color}
+${color #859900}${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ${color #dc322f}${battery_time}${endif}   ${color #268bd2}$memperc   $cpu   ${color #dc322f}$acpitemp   ${color #657b83}${if_up wlan0}${upspeed wlan0}   ${downspeed wlan0}$endif${if_up eth0}${upspeed eth0}   ${downspeed eth0}$endif   ${color #657b83} $diskio_read   $diskio_write  ${color #839496}${if_mpd_playing}$mpd_smart$endif${alignr}${utime %a %d %b }  ${color #d33682}${utime %I:%M }${color}

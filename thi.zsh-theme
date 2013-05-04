@@ -13,7 +13,6 @@ autoload -Uz colors && colors
 # Alias
 
 alias fl='ranger'
-alias subl='subl'
 
 alias ls='ls --color=auto'
 alias ll='ls -lh'
@@ -30,6 +29,8 @@ alias lç='lo'
 
 alias dsk='sudo fdisk -l'
 alias w8='sudo mount /dev/sda2 /w8'
+alias hora='feh ~/faku/hora.png'
+
 
 alias p='mpc toggle'
 alias pa='mpc clear && mpc load all && mpc shuffle && mpc volume 60 && mpc play'
@@ -127,6 +128,7 @@ funcion net(){
 alias bro='net bro'
 alias uni='net uni'
 alias uni2='net uni2'
+alias net2='chromium &! exit'
 
 # hora=date +'%H' | sed -r 's/^0//' 
 # echo $hora
