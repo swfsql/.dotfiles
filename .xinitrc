@@ -47,9 +47,9 @@ xset fp rehash
 
 xsetroot -cursor_name left_ptr
 
-: "${wm:=$HOME/down/tar/monsterwm/monsterwm}"
-: "${ff:="/tmp/monsterwm.fifo"}"
-[[ -p $ff ]] || mkfifo -m 600 "$ff"
+#: "${wm:=$HOME/down/tar/monsterwm/monsterwm}"
+#: "${ff:="/tmp/monsterwm.fifo"}"
+#[[ -p $ff ]] || mkfifo -m 600 "$ff"
 
 
 find ~/down/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z | xargs -0 feh --bg-fill &  # feh --bg-fill down/img/wall/fog-forest-tree-nature-1440x2560.jpg  & # nitrogen --restore & #bg
@@ -61,8 +61,8 @@ mpd &
 
 fifo="/tmp/m"
 
-trap 'rm -f "${fifo}"' INT TERM EXIT
-[ -p "${fifo}" ] || { rm -f "${fifo}"; mkfifo -m 600 "${fifo}"; }
+#trap 'rm -f "${fifo}"' INT TERM EXIT
+#[ -p "${fifo}" ] || { rm -f "${fifo}"; mkfifo -m 600 "${fifo}"; }
 #conky < "${fifo}" | bar &
 exec monsterwm 
 

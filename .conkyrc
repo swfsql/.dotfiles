@@ -29,9 +29,11 @@ own_window_type override
 stippled_borders 0
 update_interval 1.0
 uppercase no
-use_spacer none
+use_spacer left
 show_graph_scale no
 show_graph_range no
+short_units yes
+pad_percents 2
 
 TEXT
-${color #859900}${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ${color #dc322f}${battery_time}${endif}   ${color #268bd2}$memperc   $cpu   ${color #dc322f}$acpitemp   ${color #657b83}${if_up wlan0}${upspeed wlan0}   ${downspeed wlan0}$endif${if_up eth0}${upspeed eth0}   ${downspeed eth0}$endif   ${color #657b83} $diskio_read   $diskio_write  ${color #839496}${if_mpd_playing}$mpd_smart$endif${alignr}${utime %a %d %b }  ${color #d33682}${utime %I:%M }${color}
+${color #859900}${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ${color #dc322f}${battery_time}${endif}      ${color #268bd2}ram $memperc   cpu $cpu      ${color #dc322f}temp ${platform coretemp.0 temp 1}      ${color #657b83}disk   $diskio_read   $diskio_write      ${if_match "$gw_iface" != "(null)"}$gw_iface   ${if_up eth0}${upspeed eth0}   ${downspeed eth0}$else${upspeed wlan0}   ${downspeed wlan0}$endif${endif}      $alignr${color #839496}$if_mpd_playing$mpd_smart$endif     ${utime %a %d %b }  ${color #d33682}${utime %I:%M }${color}

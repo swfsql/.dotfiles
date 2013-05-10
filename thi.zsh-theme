@@ -13,6 +13,7 @@ autoload -Uz colors && colors
 # Alias
 
 alias fl='ranger'
+alias ka='bc -l <<<'
 
 alias ls='ls --color=auto'
 alias ll='ls -lh'
@@ -28,9 +29,9 @@ alias lo='xscreensaver-command --lock &! exit'
 alias lç='lo'
 
 alias dsk='sudo fdisk -l'
-alias w8='sudo mount /dev/sda2 /w8'
+alias fw8='sudo mount /dev/sda2 /w8'
+alias w8='VBoxManage startvm w8 &! exit'
 alias hora='feh ~/faku/hora.png'
-
 
 alias p='mpc toggle'
 alias pa='mpc clear && mpc load all && mpc shuffle && mpc volume 60 && mpc play'
@@ -114,6 +115,13 @@ function ex() {
 
     fi
  }
+
+# Windows 8, virtualbox
+# function w8(){ 
+#   virtualbox &! exit
+# }
+
+
 
 # CONEXÃO
 
