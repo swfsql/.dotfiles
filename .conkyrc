@@ -1,39 +1,10 @@
-alignment top_left
 background no
-border_width 0
-border_inner_margin 0
-border_outer_margin 0
-cpu_avg_samples 2
-default_color 3A1F1F
-default_outline_color grey
-default_shade_color eee8d5
-double_buffer yes
-draw_borders no
-draw_graph_borders no
-draw_outline no
-draw_shades yes
-use_xft yes
-xftfont iconsolata:size=8
-gap_x 0
-gap_y -1
-minimum_size 1366
-net_avg_samples 2
-no_buffers yes
-out_to_console no
-out_to_stderr no
-extra_newline no
-own_window yes
-own_window_colour fdf6e3
-own_window_class Conky
-own_window_type override
-stippled_borders 0
+out_to_console yes
 update_interval 1.0
-uppercase no
+total_run_times 0
 use_spacer left
-show_graph_scale no
-show_graph_range no
 short_units yes
 pad_percents 2
-
+ 
 TEXT
-${color #859900}${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ${color #dc322f}${battery_time}${endif}      ${color #268bd2}ram $memperc   cpu $cpu      ${color #dc322f}temp ${platform coretemp.0 temp 1}      ${color #657b83}disk   $diskio_read   $diskio_write      ${if_match "$gw_iface" != "(null)"}$gw_iface   ${if_up eth0}${upspeed eth0}   ${downspeed eth0}$else${upspeed wlan0}   ${downspeed wlan0}$endif${endif}      $alignr${color #839496}$if_mpd_playing$mpd_smart$endif     ${utime %a %d %b }  ${color #d33682}${utime %I:%M }${color}
+^p(;2)^fn(iconsolata-g:size=8)^fg(\#859900)${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ^fg(\#dc322f)${battery_time}${endif}      ^fg(\#268bd2)ram $memperc   cpu $cpu      ^fg(\#dc322f)temp ${platform coretemp.0 temp 1}      ^fg(\#657b83)disk   $diskio_read   $diskio_write      ${if_match "$gw_iface" != "(null)"}$gw_iface   ${if_up eth0}${upspeed eth0}   ${downspeed eth0}$else${upspeed wlan0}   ${downspeed wlan0}$endif${endif}      ^pa(1254;0)^fg(\#839496)${time %a %d %b}  ^fg(\#d33682)${time %I:%M }${color}

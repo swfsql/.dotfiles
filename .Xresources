@@ -1,8 +1,13 @@
-XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
-URxvt.scrollstyle: plain
-xterm*faceName: ttf-inconsolata
-xterm*faceSize: 10
-Xcursor.theme: xcursor-simpleandsoft
+Urxvt*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
+
+URxvt*scrollBar: false
+!Urxvt*font: inconsolata-g:pixelsize=10
+!URxvt*font: xft:Inconsolata-g
+
+urxvt*font: xft:Inconsolata:pixelsize=12:antialias=true:hinting=true
+urxvt*boldFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:hinting=true
+urxvt*italicFont: xft:Inconsolata:pixelsize=12:antialias=true:italic:autohint=true:hinting=true
+urxvt*bolditalicFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:italic:autohint=true:hinting=true
 
 ! Solarized color scheme for the X Window System
 !
