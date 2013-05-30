@@ -2,9 +2,9 @@ background no
 out_to_console yes
 update_interval 1.0
 total_run_times 0
-use_spacer left
+use_spacer center
 short_units yes
 pad_percents 2
  
 TEXT
-^p(;2)^fn(iconsolata-g:size=8)^fg(\#859900)${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ^fg(\#dc322f)${battery_time}${endif}      ^fg(\#268bd2)ram $memperc   cpu $cpu      ^fg(\#dc322f)temp ${platform coretemp.0 temp 1}      ^fg(\#657b83)disk   $diskio_read   $diskio_write      ${if_match "$gw_iface" != "(null)"}$gw_iface   ${if_up eth0}${upspeed eth0}   ${downspeed eth0}$else${upspeed wlan0}   ${downspeed wlan0}$endif${endif}      ^pa(1254;0)^fg(\#839496)${time %a %d %b}  ^fg(\#d33682)${time %I:%M }${color}
+^p(;2)^fn(iconsolata-g:size=8)^fg(\#d33682)${time %I:%M }^fg(\#859900)${battery_short}${if_match "${exec acpi | cut -c12}" == "D"} ^fg(\#dc322f)${battery_time} ${endif} ^fg(\#839496)${time %a %d %b} ^fg(\#268bd2)ram $memperc cpu $cpu ^fg(\#dc322f)temp ${platform coretemp.0 temp 1} ^fg(\#657b83)disk   $diskio_read   $diskio_write      ${if_match "$gw_iface" != "(null)"}$gw_iface${if_up wlp1s0}   ${upspeedf wlp1s0} / ${downspeedf wlp1s0}$endif${if_up enp2s0f5}   ${upspeedf enp2s0f5} / ${downspeedf enp2s0f5}$endif${endif}
