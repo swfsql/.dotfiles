@@ -46,11 +46,11 @@ sub refresh {
 
    my @ofs;
 
-   substr $text, 0, 1, "|";
+#   substr $text, 0, 1, "";
 #   @$rend[0 .. 2] = ($self->{rs_tab}) x 3;
 #   push @ofs, [0, 3, sub { $_[0]->new_tab }];
 
-   my $ofs = 1;
+   my $ofs = 0;
    my $idx = 0;
 
    for my $tab (@{ $self->{tabs} }) {
@@ -62,7 +62,7 @@ sub refresh {
       my $txt = "$act$idx$act";
       my $len = length $txt;
 
-      substr $text, $ofs, $len + 1, "$txt|";
+      substr $text, $ofs, $len + 1, "$txt ";
       @$rend[$ofs .. $ofs + $len - 1] = ($self->{rs_tab}) x $len
          if $tab == $self->{cur};
 
