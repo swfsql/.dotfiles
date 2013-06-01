@@ -10,9 +10,9 @@ import System.IO
 
 main = do
 
-
-    spawn $ "conky | " ++ "dzen2 -w 650 -ta l -e '' -h '12'"
-    d <- spawnPipe "dzen2 -w 716 -x 650 -h '12' -fn 'Inconsolata-8' -p -ta r -e ''"
+ -- w650, w716, x650
+    spawn $ "conky | " ++ "dzen2 -w 995 -ta l -e '' -h '12'" 
+    d <- spawnPipe "dzen2 -w 371 -x 995 -h '12' -fn 'Inconsolata-8' -p -ta r -e ''"
 
     xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
         { 
@@ -33,7 +33,14 @@ main = do
         , ((0, xK_Print), spawn "scrot")
         , ((mod1Mask, xK_d), kill)
         , ((mod1Mask, xK_u), sendMessage (IncMasterN 1))
-        , ((mod1Mask, xK_i), sendMessage (IncMasterN (-1)))    
+        , ((mod1Mask, xK_i), sendMessage (IncMasterN (-1)))
+        , ((mod1Mask, xK_Left), spawn "mpc prev")
+        , ((mod1Mask, xK_Right), spawn "mpc next")
+        , ((mod1Mask, xK_Down), spawn "mpc volume -10")
+        , ((mod1Mask, xK_Up), spawn "mpc volume +10")
+        , ((mod1Mask .|. shiftMask, xK_Left), spawn "mpc del 0")
+        , ((mod1Mask .|. shiftMask, xK_Right), spawn "mpc toggle")
+        , ((mod1Mask .|. shiftMask, xK_Up), spawn "mpc shuffle")
         ]
 myLogHook h = dynamicLogWithPP $ defaultPP
 
@@ -54,7 +61,7 @@ myLogHook h = dynamicLogWithPP $ defaultPP
     , ppUrgent          = dzenColor "#ff0000" "" . pad . dzenStrip
 
     -- shorten if it goes over 100 characters
-    , ppTitle           = shorten 100  
+    , ppTitle           = shorten 40  
 
     -- no separator between workspaces
     , ppWsSep           = ""
