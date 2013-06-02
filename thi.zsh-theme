@@ -33,7 +33,6 @@ alias fw8='sudo mount /dev/sda2 /w8'
 alias w8='VBoxManage startvm w8 &! exit'
 alias hora='feh ~/faku/hora.png'
 
-
 alias p='mpc toggle'
 alias pa='mpc clear && mpc load all && mpc shuffle && mpc volume 60 && mpc play'
 alias load='mpc load'
@@ -172,8 +171,7 @@ function light() {
   cat $tmprc.tmp > $dwbrc
   rm $tmprc.tmp
 
-  xmonad --restart
-  urxvt &! exit
+  xterm &! exit
 }
 
 
@@ -201,8 +199,7 @@ function dark() {
   cat $tmprc.tmp > $dwbrc
   rm $tmprc.tmp
 
-  xmonad --restart
-  urxvt &! exit
+  xterm &! exit
 }
 
 

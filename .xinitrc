@@ -48,6 +48,14 @@ xset -b #fuck you beep
 xsetroot -cursor_name left_ptr
 
 
+function disk () {
+ while read data
+ do
+   echo $data | sed -r "s/0B/0.0/g" | sed -r "s/([0-9])[0-9]{2,2}\.{0,1}[0-9]*K/0.\1/g" | sed -r "s/.*[BK]/0.1/g" | sed -r "s/\.([0-9])[0-9]/.\1/g" | sed -r "s/M//g"
+  done
+ }
+
+
 #: "${wm:=$HOME/down/tar/monsterwm/monsterwm}"
 #: "${ff:="/tmp/monsterwm.fifo"}"
 #[[ -p $ff ]] || mkfifo -m 600 "$ff"
@@ -56,4 +64,6 @@ urxvtd -q -o -f
 find ~/hd/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z | xargs -0 feh --bg-fill &  # feh --bg-fill down/img/wall/fog-forest-tree-nature-1440x2560.jpg  & # nitrogen --restore & #bg
 /usr/bin/xscreensaver -no-splash &
 mpd &
+conky -c .conkyrcread | disk >  .conkyread_num &
+conky -c .conkyrcwrite | disk >  .conkywrite_num &
 exec xmonad

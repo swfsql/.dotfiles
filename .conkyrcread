@@ -1,0 +1,10 @@
+background no
+out_to_console yes
+update_interval 10.0
+total_run_times 0
+use_spacer center
+short_units yes 
+pad_percents 2
+ 
+TEXT
+$diskio_read
