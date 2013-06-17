@@ -7,4 +7,4 @@ short_units yes
 pad_percents 2
  
 TEXT
-^p(;2)^fn(iconsolata-g:size=8)^fg(\#d33682)${time %I:%M }^fg(\#859900)${battery_short} ${if_match "${exec acpi | cut -c12}" == "D"} ^fg(\#dc322f)${battery_time} ${endif}^fg(\#839496)${time %a %d %b} ^fg(\#268bd2)ram $memperc cpu $cpu ^fg(\#dc322f)temp ${platform coretemp.0 temp 1} ^fg(\#657b83)disk ${exec cat .conkyread_num | tail -n1 } / ${exec cat .conkywrite_num | tail -n1 } ^fg(\#d33682)${if_match "$gw_iface" != "(null)"}net${if_up wlp1s0} ${upspeedf wlp1s0} / ${downspeedf wlp1s0}$endif ^fg(\#839496)^pa(650)$if_mpd_playing$mpd_smart$endif
+^p(;2)^fn(iconsolata-g:size=8)^fg(\#d33682)${time %I:%M }^fg(\#859900)${battery_short} ${if_match "${exec acpi | cut -c12}" == "D"} ^fg(\#dc322f)${battery_time} ${endif}^fg(\#839496)${time %a %d %b} ^fg(\#268bd2)ram $memperc cpu $cpu ^fg(\#dc322f)tmp ${platform coretemp.0 temp 1} ^fg(\#657b83)dsk ${exec cat .conkyread_num | tail -n1 } / ${exec cat .conkywrite_num | tail -n1 } ^fg(\#d33682)${if_match "$gw_iface" != "(null)"}${if_up wlp1s0}net ${upspeedf wlp1s0} / ${downspeedf wlp1s0}$endif ^fg(\#839496)^pa(650)$if_mpd_playing$mpd_smart$endif

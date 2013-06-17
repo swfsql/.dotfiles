@@ -61,9 +61,9 @@ function disk () {
 #[[ -p $ff ]] || mkfifo -m 600 "$ff"
 
 urxvtd -q -o -f 
+urxvtc &
 find ~/hd/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z | xargs -0 feh --bg-fill &  # feh --bg-fill down/img/wall/fog-forest-tree-nature-1440x2560.jpg  & # nitrogen --restore & #bg
 /usr/bin/xscreensaver -no-splash &
 mpd &
-conky -c .conkyrcread | disk >  .conkyread_num &
-conky -c .conkyrcwrite | disk >  .conkywrite_num &
+./.conkys.sh &
 exec xmonad

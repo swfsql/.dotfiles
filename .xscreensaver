@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.21 for thi on Sun Apr 14 06:22:15 2013.
+# Written by xscreensaver-demo 5.21 for thi on Sat Jun 15 11:37:07 2013.
 # http://www.jwz.org/xscreensaver/
 
 timeout:	0:14:00
@@ -31,8 +31,8 @@ dpmsSuspend:	2:00:00
 dpmsOff:	4:00:00
 grabDesktopImages:  True
 grabVideoFrames:    False
-chooseRandomImages: True
-imageDirectory:	/home/thi/down/img/wall
+chooseRandomImages: False
+imageDirectory:	/home/thi/hd/img/wall
 
 mode:		random
 selected:	-1
@@ -57,7 +57,8 @@ programs:								      \
 -				qix -root				    \n\
 -				rocks -root				    \n\
 -				rorschach -root				    \n\
-				decayscreen -root -mode shuffle		    \n\
+				decayscreen -root -delay 84071 -duration      \
+				  94 -mode shuffle			    \n\
 -				flame -root				    \n\
 -				halo -root				    \n\
 -				slidescreen -root			    \n\

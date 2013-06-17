@@ -3,7 +3,7 @@
 [[ $- != *i* ]] && return
 
 # http://ruderich.org/simon/config/zshrc
-umask 077
+umask 007
 setopt autocd
 autoload -Uz zmv
 setopt histignoredups
@@ -32,6 +32,7 @@ alias dsk='sudo fdisk -l'
 alias fw8='sudo mount /dev/sda2 /w8'
 alias w8='VBoxManage startvm w8 &! exit'
 alias hora='feh ~/faku/hora.png'
+
 
 alias p='mpc toggle'
 alias pa='mpc clear && mpc load all && mpc shuffle && mpc volume 60 && mpc play'
@@ -171,7 +172,8 @@ function light() {
   cat $tmprc.tmp > $dwbrc
   rm $tmprc.tmp
 
-  xterm &! exit
+  xmonad --restart
+  urxvt &! exit
 }
 
 
@@ -199,7 +201,8 @@ function dark() {
   cat $tmprc.tmp > $dwbrc
   rm $tmprc.tmp
 
-  xterm &! exit
+  xmonad --restart
+  urxvt &! exit
 }
 
 
@@ -228,3 +231,13 @@ RPROMPT='$(git_prompt_info)${return_code}$FG[032]%$THI_COL<..<${PWD/#$HOME/~}%<<
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%}⚡%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+
+
+function disk () {
+  while read data
+  do
+    echo $data | sed -r "s/0B/0.0/g" | sed -r "s/([0-9])[0-9]{2,2}\.{0,1}[0-9]*K/0.\1/g" | sed -r "s/.*[BK]/0.1/g" | sed -r "s/\.([0-9])[0-9]/.\1/g" | sed -r "s/M//g"
+  done
+}
+
+
