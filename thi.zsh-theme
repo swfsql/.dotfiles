@@ -13,7 +13,7 @@ autoload -Uz colors && colors
 # Alias
 
 alias fl='ranger'
-alias ka='bc -l <<<'
+alias ka='mathomatic -q'
 
 alias ls='ls --color=auto'
 alias ll='ls -lh'
@@ -32,7 +32,7 @@ alias dsk='sudo fdisk -l'
 alias fw8='sudo mount /dev/sda2 /w8'
 alias w8='VBoxManage startvm w8 &! exit'
 alias hora='feh ~/faku/hora.png'
-
+alias ariad='aria2c --conf-path=/home/thi/.aria2/aria2d.conf'
 
 alias p='mpc toggle'
 alias pa='mpc clear && mpc load all && mpc shuffle && mpc volume 60 && mpc play'
@@ -44,6 +44,8 @@ alias vol='mpc volume'
 alias high='mpc volume 100'
 alias low='mpc volume 60'
 
+
+alias pl='mplayer '
 alias dj='mplayer -playlist http://www.bbc.co.uk/radio1/wm_asx/aod/radio1.asx'
 alias folk='mplayer -playlist http://mms-live.online.no/p4_country.m3u'
 alias folk2='mplayer -playlist http://server-10.stream-server.nl:8300/listen.pls'
