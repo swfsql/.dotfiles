@@ -38,7 +38,7 @@ do
 done
 
 echo "acordou"
-#  echo pause | mplayer -slave "$HOME/down/.yt/${PREF}${FILENAME}"
+echo pause | mplayer -slave "$HOME/down/.yt/${PREF}${FILENAME}"
 
 #echo "depois"
 #mplayer /home/thi/down/.yt/"$FILENAME"
