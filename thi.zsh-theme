@@ -13,7 +13,11 @@ autoload -Uz colors && colors
 # Alias
 
 alias fl='ranger'
-alias ka='mathomatic -q'
+alias k='clear && mathomatic -q'
+alias wf='sudo wifi-menu'
+alias pl='mplayer '
+alias hora='feh ~/faku/hora.png'
+alias ariad='aria2c --conf-path=/home/thi/.aria2/aria2d.conf'
 
 alias ls='ls --color=auto'
 alias ll='ls -lh'
@@ -23,34 +27,11 @@ alias ...='cd ../.. && ls'
 alias lk='cd'
 alias grep='grep --color=auto'
 
+alias shut='sudo shutdown -h now'
 alias shutdown='sudo shutdown -h now'
 alias reboot='sudo reboot'
-alias lo='xscreensaver-command --lock &! exit'
-alias lç='lo'
-
-alias dsk='sudo fdisk -l'
-alias fw8='sudo mount /dev/sda2 /w8'
-alias w8='VBoxManage startvm w8 &! exit'
-alias hora='feh ~/faku/hora.png'
-alias ariad='aria2c --conf-path=/home/thi/.aria2/aria2d.conf'
-
-alias p='mpc toggle'
-alias pa='mpc clear && mpc load all && mpc shuffle && mpc volume 60 && mpc play'
-alias load='mpc load'
-alias shuf='mpc shuffle'
-alias next='mpc next'
-alias prev='mpc prev'
-alias vol='mpc volume'
-alias high='mpc volume 100'
-alias low='mpc volume 60'
 
 
-alias pl='mplayer '
-alias dj='mplayer -playlist http://www.bbc.co.uk/radio1/wm_asx/aod/radio1.asx'
-alias folk='mplayer -playlist http://mms-live.online.no/p4_country.m3u'
-alias folk2='mplayer -playlist http://server-10.stream-server.nl:8300/listen.pls'
-alias rock='mplayer -playlist http://sc6.radiocaroline.net:8040/listen.pls'
-alias chill='mplayer -playlist http://media-ice.musicradio.com/ChillMP3'
 
 function cv() {
  if [[ $1 == *\.c ]]; then
@@ -119,30 +100,21 @@ function ex() {
     fi
  }
 
-# Windows 8, virtualbox
-# function w8(){ 
-#   virtualbox &! exit
-# }
-
-
-
 # CONEXÃO
 
-funcion net(){
-  if [[ $# == "1" ]] ; then
-    proxy $1
-    sudo netcfg $1
-  else
-    dwb &! exit
-  fi
-}
-alias bro='net bro'
-alias uni='net uni'
-alias uni2='net uni2'
-alias net2='chromium &! exit'
+# funcion net(){
+#   if [[ $# == "1" ]] ; then
+#     proxy $1
+#     sudo netcfg $1
+#   else
+#     dwb &! exit
+#   fi
+# }
+# alias bro='net bro'
+# alias uni='net uni'
+# alias uni2='net uni2'
+# alias net2='chromium &! exit'
 
-# hora=date +'%H' | sed -r 's/^0//' 
-# echo $hora
 
 # TEMA
 
@@ -211,10 +183,25 @@ function dark() {
 # SE SAIR, VOLTAR AO LOGIN DO THI
 
 
-if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
-  startx
-  logout
-fi
+# if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
+#   startx
+#   logout
+# fi
+
+
+# Converte um video para mp3
+function mp3 () {
+  ffmpeg -i "$1" -q:a 0 -map a "${1}.mp3"
+}
+
+
+# Usado no Conky
+function disk () {
+  while read data
+  do
+    echo $data | sed -r "s/0B/0.0/g" | sed -r "s/([0-9])[0-9]{2,2}\.{0,1}[0-9]*K/0.\1/g" | sed -r "s/.*[BK]/0.1/g" | sed -r "s/\.([0-9])[0-9]/.\1/g" | sed -r "s/M//g"
+  done
+}
 
 
 # PROMPT
@@ -233,13 +220,3 @@ RPROMPT='$(git_prompt_info)${return_code}$FG[032]%$THI_COL<..<${PWD/#$HOME/~}%<<
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%}⚡%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-
-
-function disk () {
-  while read data
-  do
-    echo $data | sed -r "s/0B/0.0/g" | sed -r "s/([0-9])[0-9]{2,2}\.{0,1}[0-9]*K/0.\1/g" | sed -r "s/.*[BK]/0.1/g" | sed -r "s/\.([0-9])[0-9]/.\1/g" | sed -r "s/M//g"
-  done
-}
-
-

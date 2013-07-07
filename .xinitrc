@@ -47,6 +47,7 @@ xset -b #fuck you beep
 
 xsetroot -cursor_name left_ptr
 
+./.scripts/ytold & # move videos antigos do youtube para old/
 
 function disk () {
  while read data
@@ -62,8 +63,17 @@ function disk () {
 
 urxvtd -q -o -f 
 urxvtc &
-find ~/hd/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z | xargs -0 feh --bg-fill &  # feh --bg-fill down/img/wall/fog-forest-tree-nature-1440x2560.jpg  & # nitrogen --restore & #bg
+
+# BACKGROUND
+cat ~/.bg | xargs -0 feh --bg-fill &
+find ~/hd/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z > ~/.bg
+BGI=$(cat ~/.bg)
+rm ~/.bgi
+ln -s $BGI ~/.bgi
+
+#find ~/hd/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z | xargs -0 feh --bg-fill &  # feh --bg-fill down/img/wall/fog-forest-tree-nature-1440x2560.jpg  & # nitrogen --restore & #bg
 /usr/bin/xscreensaver -no-splash &
 mpd &
 ./.conkys.sh &
+aria2c --conf-path=$HOME/.aria2/aria2d.conf &
 exec xmonad
