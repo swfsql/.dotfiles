@@ -3,19 +3,18 @@ FILENAME=`echo "$VIDEO_DATA" | tail -n 1`
 URL=`echo "$VIDEO_DATA" | head -n 1`
 PREF=""
 
-if [ -e "$HOME/down/.yt/old/$FILENAME" ]
+if [ -e "$HOME/yt/old/$FILENAME" ]
 then
   PREF="old/"
 fi
 
-diana --out="${PREF}${FILENAME}" add $URL
-
-FILE="${HOME}/down/.yt/${PREF}${FILENAME}.aria2"
+FILE="${HOME}/yt/${PREF}${FILENAME}.aria2"
 
 cont=1
 
-if [ ! -e "$FILE" ] && [ ! -e "${HOME}/down/.yt/${PREF}${FILENAME}"  ]
+if [ ! -e "$FILE" ] && [ ! -e "${HOME}/yt/${PREF}${FILENAME}"  ]
 then
+  diana --out="${PREF}${FILENAME}" add $URL
   while [ ! -e "FILE" ]
   do
     sleep 1
@@ -25,6 +24,8 @@ then
       break
     fi
   done
+else
+  diana --out="${PREF}${FILENAME}" add $URL
 fi
 
 while [ -e "$FILE" ]
@@ -32,6 +33,6 @@ do
   sleep 2
 done
 
-echo pause | mplayer -slave "${HOME}/down/.yt/${PREF}${FILENAME}"
+echo pause | mplayer -slave "${HOME}/yt/${PREF}${FILENAME}"
 
 #https://github.com/tobbez/youtube-dl-aria/blob/master/youtube-dl-aria
