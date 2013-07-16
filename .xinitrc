@@ -37,29 +37,9 @@ fi
 
 xset -b #fuck you beep
 
-# font
-#xset +fp /usr/share/fonts/local
-#xset +fp /usr/share/fonts/TTF
-#xset +fp /usr/share/fonts/100dpi
-#xset +fp /usr/share/fonts/misc
-#xset +fp /usr/share/fonts/truetype
-#xset fp rehash
-
 xsetroot -cursor_name left_ptr
 
 ./.scripts/ytold & # move videos antigos do youtube para old/
-
-function disk () {
- while read data
- do
-   echo $data | sed -r "s/0B/0.0/g" | sed -r "s/([0-9])[0-9]{2,2}\.{0,1}[0-9]*K/0.\1/g" | sed -r "s/.*[BK]/0.1/g" | sed -r "s/\.([0-9])[0-9]/.\1/g" | sed -r "s/M//g"
-  done
- }
-
-
-#: "${wm:=$HOME/down/tar/monsterwm/monsterwm}"
-#: "${ff:="/tmp/monsterwm.fifo"}"
-#[[ -p $ff ]] || mkfifo -m 600 "$ff"
 
 urxvtd -q -o -f 
 urxvtc &
@@ -71,9 +51,7 @@ BGI=$(cat ~/.bg)
 rm ~/.bgi
 ln -s $BGI ~/.bgi
 
-#find ~/hd/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z | xargs -0 feh --bg-fill &  # feh --bg-fill down/img/wall/fog-forest-tree-nature-1440x2560.jpg  & # nitrogen --restore & #bg
 /usr/bin/xscreensaver -no-splash &
 mpd &
-./.conkys.sh &
 aria2c --conf-path=$HOME/.aria2/aria2d.conf &
 exec xmonad
