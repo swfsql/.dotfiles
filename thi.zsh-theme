@@ -16,34 +16,40 @@ alias fl='ranger'
 alias k='clear && mathomatic -q'
 alias wf='sudo wifi-menu'
 alias pl='mplayer '
-alias hora='feh ~/faku/hora.png'
 alias ariad='aria2c --conf-path=/home/thi/.aria2/aria2d.conf'
 
-alias ls='ls --color=auto'
-alias ll='ls -lh'
-alias la='ls -a'
+alias ls='ls -hF --color=auto'
+alias ll='ls -l'
+alias lr='ls -R'
+alias la='ll -A'
+alias lx='ll -BX'
+alias lz='ll -rS'
+alias lt='ll -rt'
+alias lm='la | less'
+
 alias ..='cd .. && ls'
 alias ...='cd ../.. && ls'
 alias lk='cd'
 alias grep='grep --color=auto'
+alias mkdir='mkdir -p -v'
+alias ping='ping -c 3'
+alias :q=' exit'
+alias :Q=' exit'
+alias :x=' exit'
+alias cd..='cd ..'
+
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -I'
+alias ln='ln -i'
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+alias cls=' echo -ne "\033c"'
 
 alias shut='sudo shutdown -h now'
 alias shutdown='sudo shutdown -h now'
 alias reboot='sudo reboot'
-
-
-
-function cv() {
- if [[ $1 == *\.c ]]; then
-  gcc $1 `pkg-config --libs --cflags opencv`
- elif [[ $1  == *\.cpp ]]; then
-  g++ $1 `pkg-config --libs --cflags opencv`
- else
-  echo "extensao invalida"
-  return
- fi
- ./a.out
-}
 
 ## ex - archive extractor
 # usage: ex <file>
@@ -100,34 +106,21 @@ function ex() {
     fi
  }
 
-# CONEXÃO
-
-# funcion net(){
-#   if [[ $# == "1" ]] ; then
-#     proxy $1
-#     sudo netcfg $1
-#   else
-#     dwb &! exit
-#   fi
-# }
-# alias bro='net bro'
-# alias uni='net uni'
-# alias uni2='net uni2'
-# alias net2='chromium &! exit'
-
 
 # TEMA
 
-sublrc=$HOME/.config/sublime-text-2/Packages/User/Preferences.sublime-settings
+sublrc=$HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 conkyrc=$HOME/.conkyrc
 dwbrc=$HOME/.config/dwb/settings
 tmprc=$HOME/.tmprc
+tskrc=$HOME/.taskrc
 function light() {
   xrdb -load $HOME/.Xresources
   xrdb -merge $HOME/.Xresources_light
   
-  echo $(cat $sublrc| sed -r "s/\(Dark\)\.tmTheme/(Light).tmTheme/") > $sublrc
-  
+  echo "$(cat $sublrc | sed -r "s/\(Dark\)\.tmTheme/(Light).tmTheme/")" > $sublrc
+  echo "$(cat $tskrc | sed -r "s/solarized\-light/solarized\-dark/")" > $tskrc
+
   cat $conkyrc| sed -r "s/own_window_colour 002b36/own_window_colour fdf6e3/" > $conkyrc.tmp
   cat $conkyrc.tmp > $conkyrc
   cat $conkyrc | sed -r "s/color #839496/color #657b83/" > $conkyrc.tmp
@@ -147,7 +140,7 @@ function light() {
   rm $tmprc.tmp
 
   xmonad --restart
-  urxvt &! exit
+  urxvtc &! exit
 }
 
 
@@ -155,7 +148,8 @@ function dark() {
   xrdb -load $HOME/.Xresources
   xrdb -merge $HOME/.Xresources_dark
   
-  echo $(cat $sublrc | sed -r "s/\(Light\)\.tmTheme/(Dark).tmTheme/") > $sublrc
+  echo "$(cat $sublrc | sed -r "s/\(Light\)\.tmTheme/(Dark).tmTheme/")" > $sublrc
+  echo "$(cat $tskrc | sed -r "s/solarized\-dark/solarized\-light/")" > $tskrc
 
   cat $conkyrc| sed -r "s/own_window_colour fdf6e3/own_window_colour 002b36/" > $conkyrc.tmp
   cat $conkyrc.tmp > $conkyrc
@@ -176,7 +170,7 @@ function dark() {
   rm $tmprc.tmp
 
   xmonad --restart
-  urxvt &! exit
+  urxvtc &! exit
 }
 
 
@@ -192,15 +186,6 @@ function dark() {
 # Converte um video para mp3
 function mp3 () {
   ffmpeg -i "$1" -q:a 0 -map a "${1}.mp3"
-}
-
-
-# Usado no Conky
-function disk () {
-  while read data
-  do
-    echo $data | sed -r "s/0B/0.0/g" | sed -r "s/([0-9])[0-9]{2,2}\.{0,1}[0-9]*K/0.\1/g" | sed -r "s/.*[BK]/0.1/g" | sed -r "s/\.([0-9])[0-9]/.\1/g" | sed -r "s/M//g"
-  done
 }
 
 

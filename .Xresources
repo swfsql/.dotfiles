@@ -9,6 +9,13 @@ urxvt*boldFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:hinting=true
 urxvt*italicFont: xft:Inconsolata:pixelsize=12:antialias=true:italic:autohint=true:hinting=true
 urxvt*bolditalicFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:italic:autohint=true:hinting=true
 
+URxvt.perl-ext-common: tabbed
+URxvt.tabbed.tabbar-fg: 12
+URxvt.tabbed.tabbar-bg: 8
+URxvt.tabbed.tab-fg:    9 
+URxvt.tabbed.tab-bg:    8
+
+
 ! Solarized color scheme for the X Window System
 !
 ! http://ethanschoonover.com/solarized
