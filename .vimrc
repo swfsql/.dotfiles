@@ -95,6 +95,7 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 " thi edit
+set rtp+=$HOME/.vim
 set spell
 set spelllang=en,pt
 set tabstop=2

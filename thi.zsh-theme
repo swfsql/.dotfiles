@@ -17,6 +17,11 @@ alias k='clear && mathomatic -q'
 alias wf='sudo wifi-menu'
 alias pl='mplayer '
 alias ariad='aria2c --conf-path=/home/thi/.aria2/aria2d.conf'
+alias tk='task'
+alias tsk='tk'
+alias cal='task cal'
+alias subl='subl3'
+alias hora='feh ~/faku/hora.png'
 
 alias ls='ls -hF --color=auto'
 alias ll='ls -l'
@@ -50,6 +55,31 @@ alias cls=' echo -ne "\033c"'
 alias shut='sudo shutdown -h now'
 alias shutdown='sudo shutdown -h now'
 alias reboot='sudo reboot'
+
+# faculdade
+
+panal=$HOME/faku/anal1/livro/1/7
+lanal='Electronic\ Devices\ and\ Circuit\ Theory\ 7th\ Edition.pdf'
+alias anal="zathura $panal/$lanal 2>/dev/null &! vim $panal/pag"
+
+pdig=$HOME/faku/dig2/livro/3/10
+ldig='Digital\ Systems\ Principles\ and\ Applications,\ 10E.pdf'
+alias dig="zathura $pdig/$ldig 2>/dev/null &! vim $pdig/pag"
+
+pmic=$HOME/faku/micro/livro/2/2
+lmic='Microcontroladores_PIC_Programacao_em_C.pdf'
+alias mic="zathura $pmic/$lmic 2>/dev/null &! vim $pmic/pag"
+
+predes=$HOME/faku/redes/livro/1/6
+lredes='AW.Computer.Networking.A.Top-Down.Approach.6th.Edition.0132856204.pdf'
+alias redes="zathura $predes/$lredes 2>/dev/null &! vim $predes/pag"
+
+
+psoft=$HOME/faku/soft/livro/2/9
+lsoft='Software\ Engineering\ 9th\ ed\ \(intro\ txt\)\ -\ I.\ Sommerville\ \(Pearson,\ 2011\)\ BBS.pdf'
+alias soft="zathura $psoft/$lsoft 2>/dev/null &! vim $psoft/pag"
+
+
 
 ## ex - archive extractor
 # usage: ex <file>
@@ -114,12 +144,23 @@ conkyrc=$HOME/.conkyrc
 dwbrc=$HOME/.config/dwb/settings
 tmprc=$HOME/.tmprc
 tskrc=$HOME/.taskrc
+gtkrc=$HOME/.gtkrc-2.0
+cssff=$HOME/.mozilla/firefox/20xi8kg1.default/chrome/userChrome.css
 function light() {
   xrdb -load $HOME/.Xresources
   xrdb -merge $HOME/.Xresources_light
   
   echo "$(cat $sublrc | sed -r "s/\(Dark\)\.tmTheme/(Light).tmTheme/")" > $sublrc
   echo "$(cat $tskrc | sed -r "s/solarized\-light/solarized\-dark/")" > $tskrc
+  echo "$(cat $gtkrc | sed -r "s/dark/light/")" > $gtkrc
+
+  cat $cssff | sed -r "s/002b36/fdf6e3/" > $cssff.tmp
+  cat $cssff.tmp > $cssff
+  cat $cssff | sed -r "s/586e75/93a1a1/" > $cssff.tmp
+  cat $cssff.tmp > $cssff
+  cat $cssff | sed -r "s/white/black/" > $cssff.tmp
+  cat $cssff.tmp > $cssff
+  rm $cssff.tmp
 
   cat $conkyrc| sed -r "s/own_window_colour 002b36/own_window_colour fdf6e3/" > $conkyrc.tmp
   cat $conkyrc.tmp > $conkyrc
@@ -150,6 +191,15 @@ function dark() {
   
   echo "$(cat $sublrc | sed -r "s/\(Light\)\.tmTheme/(Dark).tmTheme/")" > $sublrc
   echo "$(cat $tskrc | sed -r "s/solarized\-dark/solarized\-light/")" > $tskrc
+  echo "$(cat $gtkrc | sed -r "s/light/dark/")" > $gtkrc
+
+  cat $cssff | sed -r "s/fdf6e3/002b36/" > $cssff.tmp
+  cat $cssff.tmp > $cssff
+  cat $cssff | sed -r "s/93a1a1/586e75/" > $cssff.tmp
+  cat $cssff.tmp > $cssff
+  cat $cssff | sed -r "s/black/white/" > $cssff.tmp
+  cat $cssff.tmp > $cssff
+  rm $cssff.tmp
 
   cat $conkyrc| sed -r "s/own_window_colour fdf6e3/own_window_colour 002b36/" > $conkyrc.tmp
   cat $conkyrc.tmp > $conkyrc
