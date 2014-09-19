@@ -5,6 +5,8 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
+XDG_CONFIG_HOME=$HOME/.config
+
 export EDITOR=/usr/bin/vim
 
 # merge in defaults and keymaps
@@ -37,23 +39,29 @@ fi
 
 #####
 
-xset -b #fuck you beep
+# background
+cat ~/.bg | xargs -0 feh --bg-fill &
 
+#fuck you beep
+xset -b
+#cursor speed & pic
+xset m 6/1 1
 xsetroot -cursor_name left_ptr
-
-./.scripts/ytold & # move videos antigos do youtube para old/
 
 urxvtd -q -o -f 
 urxvtc &
 
-# BACKGROUND
-cat ~/.bg | xargs -0 feh --bg-fill &
+# screensaver
+/usr/bin/xscreensaver -no-splash &
+
+# music
+mpd &
+
+# change background for next session
 find ~/hd/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z > ~/.bg
 BGI=$(cat ~/.bg)
 rm ~/.bgi
 ln -s $BGI ~/.bgi
 
-/usr/bin/xscreensaver -no-splash &
-mpd &
-aria2c --conf-path=$HOME/.aria2/aria2d.conf &
 exec xmonad
+#exec i3 

@@ -111,11 +111,18 @@ set ignorecase
 set smartcase 
 set backspace=2
 set autoindent 
-set textwidth=79 
+set textwidth=0 
 set formatoptions=c,q,r,t 
 set ruler 
-set colorcolumn=80
+set colorcolumn=0
 set cursorline
 colorscheme solarized
 filetype plugin indent on
 syntax on
+
+" do vim latex suit
+set grepprg=grep\ -nH\ $*
+let g:text_flavor = "latex"
+
+
+

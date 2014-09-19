@@ -6,31 +6,30 @@
 umask 007
 setopt autocd
 autoload -Uz zmv
-setopt histignoredups
+setopt histignorealldups
 setopt histignorespace
 autoload -Uz colors && colors
+bindkey -v
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
 
 # Alias
 
 alias fl='ranger'
 alias k='clear && mathomatic -q'
-alias wf='sudo wifi-menu'
-alias pl='mplayer '
-alias ariad='aria2c --conf-path=/home/thi/.aria2/aria2d.conf'
-alias tk='task'
-alias tsk='tk'
-alias cal='task cal'
 alias subl='subl3'
-alias hora='feh ~/faku/hora.png'
+alias feh='feh -FdZ'
+
+alias dir2tar='find . -type d -maxdepth 1 -mindepth 1 -exec tar cvf {}.tar {}  \;'
+alias tar2pgp='find . -type f -name \*.tar -maxdepth 1 -exec gpg --encrypt -r Thiago -o {}.gpg {} \; -exec rm {} \;'
+alias dec='gpg --decrypt -r Thiago -o'
+alias enc='gpg --encrypt -r Thiago -o'
+alias gpg2tar='find . -type f -name \*.gpg -maxdepth 1 -exec gpg --decrypt -r Thiago -o {}.tar {} \;'
+
 
 alias ls='ls -hF --color=auto'
 alias ll='ls -l'
-alias lr='ls -R'
 alias la='ll -A'
-alias lx='ll -BX'
-alias lz='ll -rS'
-alias lt='ll -rt'
-alias lm='la | less'
 
 alias ..='cd .. && ls'
 alias ...='cd ../.. && ls'
@@ -52,34 +51,18 @@ alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 alias cls=' echo -ne "\033c"'
 
-alias shut='sudo shutdown -h now'
-alias shutdown='sudo shutdown -h now'
-alias reboot='sudo reboot'
+alias shut='systemctl poweroff'
+alias shutdown='systemctl poweroff'
+alias reboot='systemctl reboot'
+
+alias fb="printf '\33]50;%s\007' 'xft:Inconsolata:pixelsize=26:antialias=true:hinting=true'"
+alias fm="printf '\33]50;%s\007' 'xft:Inconsolata:pixelsize=12:antialias=true:hinting=true'"
+alias fs="printf '\33]50;%s\007' 'xft:Inconsolata:pixelsize=8:antialias=true:hinting=true'"
 
 # faculdade
 
-panal=$HOME/faku/anal1/livro/1/7
-lanal='Electronic\ Devices\ and\ Circuit\ Theory\ 7th\ Edition.pdf'
-alias anal="zathura $panal/$lanal 2>/dev/null &! vim $panal/pag"
-
-pdig=$HOME/faku/dig2/livro/3/10
-ldig='Digital\ Systems\ Principles\ and\ Applications,\ 10E.pdf'
-alias dig="zathura $pdig/$ldig 2>/dev/null &! vim $pdig/pag"
-
-pmic=$HOME/faku/micro/livro/2/2
-lmic='Microcontroladores_PIC_Programacao_em_C.pdf'
-alias mic="zathura $pmic/$lmic 2>/dev/null &! vim $pmic/pag"
-
-predes=$HOME/faku/redes/livro/1/6
-lredes='AW.Computer.Networking.A.Top-Down.Approach.6th.Edition.0132856204.pdf'
-alias redes="zathura $predes/$lredes 2>/dev/null &! vim $predes/pag"
-
-
-psoft=$HOME/faku/soft/livro/2/9
-lsoft='Software\ Engineering\ 9th\ ed\ \(intro\ txt\)\ -\ I.\ Sommerville\ \(Pearson,\ 2011\)\ BBS.pdf'
-alias soft="zathura $psoft/$lsoft 2>/dev/null &! vim $psoft/pag"
-
-
+alias todo="vim /mnt/w7/Users/thi/Desktop/todo.txt"
+alias debt="vim /mnt/w7/Users/thi/Desktop/debts.txt"
 
 ## ex - archive extractor
 # usage: ex <file>
@@ -103,47 +86,12 @@ function ex() {
   fi
 }
 
-# PROXY
-
- function proxy(){
-
-    if [[ $1 == "thi" ]] ; then
-
-     unset HTTP_PROXY
-     unset http_proxy
-     unset HTTPS_PROXY
-     unset https_proxy
-     unset FTP_PROXY
-     unset ftp_proxy
-     echo -e "\nProxy environment variable removed."
-
-    elif [[ $1 == "uni" ]]; then 
-
-     export http_proxy="http://172.16.1.1:3128/"
-     export https_proxy="http://172.16.1.1:3128/"
-     export ftp_proxy="http://172.16.1.1:3128/"
-     export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-     echo -e "\nProxy environment variable set."
-
-    elif [[ $1 == "uni2" ]]; then 
-
-     export http_proxy="http://172.16.1.1:3128/"
-     export https_proxy="http://172.16.1.1:3128/"
-     export ftp_proxy="http://172.16.1.1:3128/"
-     export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-     echo -e "\nProxy environment variable set."
-
-    fi
- }
-
 
 # TEMA
 
 sublrc=$HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 conkyrc=$HOME/.conkyrc
-dwbrc=$HOME/.config/dwb/settings
 tmprc=$HOME/.tmprc
-tskrc=$HOME/.taskrc
 gtkrc=$HOME/.gtkrc-2.0
 cssff=$HOME/.mozilla/firefox/20xi8kg1.default/chrome/userChrome.css
 function light() {
@@ -151,7 +99,6 @@ function light() {
   xrdb -merge $HOME/.Xresources_light
   
   echo "$(cat $sublrc | sed -r "s/\(Dark\)\.tmTheme/(Light).tmTheme/")" > $sublrc
-  echo "$(cat $tskrc | sed -r "s/solarized\-light/solarized\-dark/")" > $tskrc
   echo "$(cat $gtkrc | sed -r "s/dark/light/")" > $gtkrc
 
   cat $cssff | sed -r "s/002b36/fdf6e3/" > $cssff.tmp
@@ -170,16 +117,6 @@ function light() {
   cat $conkyrc.tmp > $conkyrc
   rm $conkyrc.tmp
 
-  cat $dwbrc| sed -r "s/002b36/fdf6e3/" > $tmprc.tmp
-  cat $tmprc.tmp > $dwbrc
-  cat $dwbrc | sed -r "s/073642/eee8d5/" > $tmprc.tmp
-  cat $tmprc.tmp > $dwbrc
-  cat $dwbrc | sed -r "s/586e75/93a1a1/" > $tmprc.tmp
-  cat $tmprc.tmp > $dwbrc
-  cat $dwbrc | sed -r "s/657b83/839496/" > $tmprc.tmp
-  cat $tmprc.tmp > $dwbrc
-  rm $tmprc.tmp
-
   xmonad --restart
   urxvtc &! exit
 }
@@ -190,7 +127,6 @@ function dark() {
   xrdb -merge $HOME/.Xresources_dark
   
   echo "$(cat $sublrc | sed -r "s/\(Light\)\.tmTheme/(Dark).tmTheme/")" > $sublrc
-  echo "$(cat $tskrc | sed -r "s/solarized\-dark/solarized\-light/")" > $tskrc
   echo "$(cat $gtkrc | sed -r "s/light/dark/")" > $gtkrc
 
   cat $cssff | sed -r "s/fdf6e3/002b36/" > $cssff.tmp
@@ -209,16 +145,6 @@ function dark() {
   cat $conkyrc.tmp > $conkyrc
   rm $conkyrc.tmp
   
-  cat $dwbrc| sed -r "s/fdf6e3/002b36/" > $tmprc.tmp
-  cat $tmprc.tmp > $dwbrc
-  cat $dwbrc | sed -r "s/eee8d5/073642/" > $tmprc.tmp
-  cat $tmprc.tmp > $dwbrc
-  cat $dwbrc | sed -r "s/93a1a1/586e75/" > $tmprc.tmp
-  cat $tmprc.tmp > $dwbrc
-  cat $dwbrc | sed -r "s/839496/657b83/" > $tmprc.tmp
-  cat $tmprc.tmp > $dwbrc
-  rm $tmprc.tmp
-
   xmonad --restart
   urxvtc &! exit
 }
@@ -235,7 +161,7 @@ function dark() {
 
 # Converte um video para mp3
 function mp3 () {
-  ffmpeg -i "$1" -q:a 0 -map a "${1}.mp3"
+  ffmpeg -threads 8 -i "$1" -q:a 0 -map a "${1}.mp3"
 }
 
 

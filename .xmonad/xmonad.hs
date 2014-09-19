@@ -11,10 +11,11 @@ import System.IO
 main = do
 
  -- w650, w716, x650
-    spawn $ "conky | " ++ "dzen2 -w 995 -ta l -e '' -h '12'" 
-    d <- spawnPipe "dzen2 -w 371 -x 995 -h '12' -fn 'Inconsolata-8' -p -ta r -e ''"
+    spawn $ "conky | " ++ "dzen2 -w 600 -ta l -e '' -h '12'" 
+    d <- spawnPipe "dzen2 -w 766 -x 600 -h '12' -fn 'Inconsolata-8' -p -ta r -e ''"
 
-    xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
+    --xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
+    xmonad $ withUrgencyHook dzenUrgencyHook { args = ["-bg", "darkgreen", "-xs", "1"] }  $ defaultConfig
         { 
 	  manageHook = manageDocks <+> manageHook defaultConfig
         , terminal   = "urxvtc"
@@ -23,8 +24,8 @@ main = do
         , focusedBorderColor = "#cb4b16"
 	, logHook = myLogHook d
         , layoutHook = avoidStruts (
-                    smartBorders $ Tall 1 (3/100) (1/2) |||
-                    noBorders Full |||
+                    smartBorders $ noBorders Full |||
+                    Tall 1 (3/100) (1/2) |||
                     Mirror (Tall 1 (3/100) (1/2)))
         }
 
@@ -32,6 +33,7 @@ main = do
         [ ((mod1Mask, xK_Escape), spawn "xscreensaver-command -lock")
         , ((0, xK_Print), spawn "scrot")
         , ((mod1Mask, xK_d), kill)
+        , ((mod1Mask, xK_b), sendMessage ToggleStruts)
         , ((mod1Mask, xK_u), sendMessage (IncMasterN 1))
         , ((mod1Mask, xK_i), sendMessage (IncMasterN (-1)))
         , ((mod1Mask, xK_Left), spawn "mpc prev")
@@ -61,7 +63,7 @@ myLogHook h = dynamicLogWithPP $ defaultPP
     , ppUrgent          = dzenColor "#ff0000" "" . pad . dzenStrip
 
     -- shorten if it goes over 100 characters
-    , ppTitle           = shorten 40  
+    , ppTitle           = shorten 90 
 
     -- no separator between workspaces
     , ppWsSep           = ""
@@ -75,3 +77,4 @@ myLogHook h = dynamicLogWithPP $ defaultPP
     , ppOutput          = hPutStrLn h
 
     }
+
