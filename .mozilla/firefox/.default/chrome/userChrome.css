@@ -1,0 +1,54 @@
+/* chrome://browser/content/browser.xul */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* only needed once */
+#nav-bar { display: none !important; }
+
+#TabsToolbar .tabbrowser-tab {
+    border-style: none !important;
+    margin-left: 1px !important;
+    text-shadow: none !important;
+}
+
+
+#TabsToolbar .tabbrowser-tab[first-tab][last-tab],
+#TabsToolbar .tabbrowser-tab[last-visible-tab] {
+    border-right-width: 1px !important;
+}
+
+
+#TabsToolbar .tabbrowser-tab[selected] {
+    z-index: 1 !important;
+    background-clip: padding-box !important;
+    border-width: 1px 1px 0 1px !important;
+    padding: 4px 0px !important;
+    border-style: solid !important;
+    margin-left: 1px !important;
+    -moz-border-top-colors: none !important;
+    -moz-border-left-colors: none !important;
+    -moz-border-right-colors: none !important;
+    -moz-border-bottom-colors: none !important;
+
+    background-color: #002b36 !important; 
+    color: #fdf6e3 !important;
+    border-color: #000000 !important; 
+    margin-top: -2px !important;
+}
+
+
+#TabsToolbar .tab-background-start,
+#TabsToolbar .tab-background-end {
+    display: none !important;
+}
+
+
+#TabsToolbar .tab-background-middle {
+    margin: -4px -2px !important;
+    background: transparent !important;
+}
+
+
+#TabsToolbar .tabs-newtab-button, 
+#TabsToolbar .tab-close-button {
+        display: none !important;
+        border: none !important;
+        margin: 0 !important;
+}
