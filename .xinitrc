@@ -42,6 +42,8 @@ xsetroot -cursor_name left_ptr
 urxvtd -q -o -f 
 urxvtc &
 
+setxkbmap -model jp106 -layout jp -option ctrl:nocaps
+
 # change background for next session
 find ~/hd/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z > ~/.tmp/bg
 BGI=$(cat ~/.tmp/bg)
