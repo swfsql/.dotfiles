@@ -52,3 +52,9 @@
         border: none !important;
         margin: 0 !important;
 }
+
+#content browser {
+ margin-right: -16px !important;
+ overflow-y: scroll;
+ overflow-x: hidden;
+}
