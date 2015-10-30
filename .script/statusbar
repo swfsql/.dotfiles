@@ -1,0 +1,78 @@
+#!/bin/sh
+
+# intel processor speed
+#sudo /usr/bin/i7z -w l -l /home/thi/.tmp/freq --nogui &
+#sudo /usr/bin/chown thi /home/thi/.tmp/freq
+
+DWM_BLINK=" ";
+
+while true; do
+
+	if [ "$DWM_BLINK" == ":" ]; then
+		DWM_BLINK=" ";
+	else
+		DWM_BLINK=":";
+	fi;
+
+	#DWM_CPU_FREQ_A=$( <$HOME/.tmp/freq | tail -n2 | sort -r );
+	#DWM_CPU_FREQ_MAX=$( echo $DWM_CPU_FREQ_A | head -n 1 );
+	#DWM_CPU_FREQ_MAX=$( printf "%1.1f" DWM_CPU_FREQ_MAX/1024 );
+	#DWM_CPU_FREQ_AVERAGE=$( echo $A | awk '{total+=$1; count+=1} END {printf "%1.1f" total/(count*1024)}' );
+
+  # Volume Level
+  DWM_VOL=$( amixer -c0 sget Master | awk -vS0=' ' '/Mono:/ {print substr($4, 2, length($4) - 3)}' );
+
+  # Date and Time
+  DWM_CLOCK=$( date "+%a %e %b / %l${DWM_BLINK}%M" );
+
+  # RAM Memory usage
+	#DWM_FREE_M=$( free -m );
+  DWM_RAM=$( free -m | awk -vS1=' ' '/Mem:/ {printf "%2.0f", 100 * $3 / $7}'  );
+  DWM_SWAP=$( free -m | awk -vS2=' ' '/Swap:/ {printf "%2.0f", 100 * $3 / $4}'  );
+
+	DWM_TEMP_MAX=($(sensors | sed -n '3,4p' | awk '{print $3}' | cut -c 2-3 | sort -r | head -1));
+
+  # Overall output command
+  DWM_STATUS="${DWM_VOL}v / ${DWM_SWAP} ${DWM_RAM}r / ${DWM_CPU_AVERAGE} ${DWM_CPU_MAX}c / ${DWM_TEMP_MAX}C / $DWM_CLOCK";
+  xsetroot -name "$DWM_STATUS";
+
+  # CPU Usage
+  DWM_CPU_A=($(sed -n '2,5p' /proc/stat));
+  DWM_CPU_B=(0 0 0 0);
+  for ((i=0; i<4; i++)) 
+  do
+    for ((j=0; j<4; j++)) 
+    do
+      DWM_CPU_B[i]=$((${DWM_CPU_B[i]} + ${DWM_CPU_A[1 + i * 11 + j]}));
+    done
+  done
+  sleep 1
+  DWM_CPU_C=($(sed -n '2,5p' /proc/stat));
+  DWM_CPU_D=(0 0 0 0);
+  for ((i=0; i<4; i++)) 
+  do
+    for ((j=0; j<4; j++)) 
+    do
+      DWM_CPU_D[i]=$((${DWM_CPU_D[i]} + ${DWM_CPU_C[1 + i * 11 + j]}));
+    done
+  done
+  DWM_CPU_E=(0 0 0 0);
+  for ((i=0; i<4; i++)) 
+  do
+    DWM_CPU_E[i]=$(((100 * (${DWM_CPU_B[i]} - ${DWM_CPU_D[i]} - ${DWM_CPU_A[4 + i * 11]} + ${DWM_CPU_C[4 + i * 11]})) / (${DWM_CPU_B[i]} - ${DWM_CPU_D[i]})));
+  done
+  OLDIFS=$IFS;
+  IFS=$'\n';
+  DWM_CPU_MAX=$(echo "${DWM_CPU_E[*]}" | sort -nr | head -n1);
+  DWM_CPU_MAX="$(printf "%2d" $DWM_CPU_MAX)";
+  IFS=$OLDIFS;
+  #echo $DWM_CPU_MAX
+  DWM_CPU_AVERAGE=0;
+  for i in "${DWM_CPU_E[@]}"
+  do
+    DWM_CPU_AVERAGE=$((DWM_CPU_AVERAGE + i));
+  done
+  DWM_CPU_AVERAGE=$(printf "%2.0f" $(($DWM_CPU_AVERAGE/4)) );
+	#DWM_CPU_AVERAGE=$((DWM_CPU_AVERAGE/4))
+done 
+

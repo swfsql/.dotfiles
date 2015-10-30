@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# background
+cat $HOME/.tmp/bg | xargs -0 feh --bg-fill &
+
+sleep 1
+
+# change background for next session
+find $HOME/hd/img/wall/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -n1 -z > $HOME/.tmp/bg
+BGI=$(cat $HOME/.tmp/bg)
+rm $HOME/.tmp/bgi
+ln -s $BGI $HOME/.tmp/bgi
