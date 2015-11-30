@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wmname LG3D
+wmname LG3D # java fix
 xset m 14/2 3 # mouse speed
 xsetroot -cursor_name left_ptr # mouse cursor
 setxkbmap -model pc104 -layout us,br -option ctrl:nocaps,grp:win_space_toggle # keyboard settings
@@ -12,7 +12,8 @@ $HOME/.script/statusbar &
 
 # start some programs
 /usr/bin/xscreensaver -no-splash &
-mpd & # music player
+redshift -l -19.619898:-43.217412 &
+dunst &
 urxvtd -q -o -f
 urxvtc &
 

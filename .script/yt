@@ -1,0 +1,49 @@
+#!/bin/bash
+
+clipboard=$(xclip -selection clipboard -o)
+path=$clipboard
+rate=250k
+if [ $# -eq 0 ] ; then
+	if [ ! $(<<<$clipboard grep -P "^http") ] ; then
+		notify-send "youtube-dl" "Bad path:\n$clipboard"
+		exit 1
+	fi
+elif [ $# -eq 1 ] ; then
+	if [ $(<<<$1 grep -P "^http") ] ; then
+		path=$1
+	elif [ $(<<<$clipboard grep -P "^http") ] ; then
+		rate=$1
+	else
+		notify-send "youtube-dl" "Bad path:\n$1 \n$clipboard"
+		exit 1
+	fi
+else
+	if [ $# -eq 2 ] ; then
+  	rate=$1
+  	path=$2
+		if [ $(<<<$2 grep -P "^http") ] ; then
+			notify-send "youtube-dl" "Bad path:\n$2"
+			exit 1
+		fi
+	fi
+fi
+
+json="$(youtube-dl -j $path | jq -r '[.uploader, ._filename, .fulltitle]')"
+
+ext='mkv'
+uploader="$(echo $json | jq -r '.[0]' | sed 's/ /_/g')"
+title="$(echo $json | jq -r '.[1]' | sed 's/ /_/g' | sed 's/\.[^\.]*$//g')"
+_title="$(echo $json | jq -r '.[2]')"
+
+#echo $uploader
+#echo $title
+#echo $ext
+#exit 1
+notify-send 'youtube-dl' "Downloading ${_title}"
+
+youtube-dl -i -r $rate --no-call-home -o "/home/thi/down/.yt/${uploader}/${title}.${ext}" --download-archive ~/down/.yt/.downloaded --restrict-filenames --write-description --all-subs --recode-video mkv --convert-subtitles srt --embed-subs --embed-thumbnail --add-metadata --merge-output-format mkv "$path" 
+
+notify-send 'youtube-dl' "Download finished:\n${_title}"
+sleep 3 
+mpv --pause /home/thi/down/.yt/${uploader}/${title}.${ext}
+

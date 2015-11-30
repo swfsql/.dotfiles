@@ -30,7 +30,7 @@ while true; do
   DWM_RAM=$( free -m | awk -vS1=' ' '/Mem:/ {printf "%2.0f", 100 * ($2 - $7) / $2}'  );
   DWM_SWAP=$( free -m | awk -vS2=' ' '/Swap:/ {printf "%2.0f", 100 * $3 / $2}'  );
 
-	DWM_TEMP_MAX=($(sensors | sed -n '3,4p' | awk '{print $3}' | cut -c 2-3 | sort -r | head -1));
+	DWM_TEMP_MAX=($(sensors | sed -n '7,8p' | awk '{print $3}' | cut -c 2-3 | sort -r | head -1));
 
   # Overall output command
   DWM_STATUS="${DWM_VOL}v / ${DWM_SWAP} ${DWM_RAM}r / ${DWM_CPU_AVERAGE} ${DWM_CPU_MAX}c / ${DWM_TEMP_MAX}C / $DWM_CLOCK";
