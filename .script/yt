@@ -1,5 +1,6 @@
 #!/bin/bash
 
+notify-send 'youtube-dl' "Starting..."
 clipboard=$(xclip -selection clipboard -o)
 path=$clipboard
 rate=250k
