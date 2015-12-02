@@ -39,7 +39,7 @@ colorscheme solarized
 set background=light
 set incsearch
 set spell
-set spelllang=en_us
+set spelllang=en_us,pt_br,th
 set shiftwidth=2
 set showmatch
 set hlsearch
